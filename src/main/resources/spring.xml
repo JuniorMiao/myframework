@@ -1,0 +1,16 @@
+<beans>
+    <!--id就是接口的名字, class实现类的全限定名-->
+    <bean id="accountController" class="com.learn.controller.AccountController">
+        <property name="accountService" ref="accountService" />
+    </bean>
+    <bean id="accountService" class="com.learn.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao" />
+    </bean>
+    <bean id="accountDao" class="com.learn.dao.impl.AccountDaoImpl"></bean>
+
+    <!--增强类-->
+    <bean id="transactionManager" class="com.learn.framework.aop.TransactionManager"></bean>
+    <!--给指定包下的所有类的所有方法产生代理-->
+    <before package="com.learn.service.impl" ref="transactionManager" method="begin"></before>
+
+</beans>
